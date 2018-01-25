@@ -28,8 +28,13 @@ namespace Appscore.API
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
+            var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+
             //Add dependency injection
-            services.AddSingleton<IAncestryRepository, AncestryRepository>(sp => new AncestryRepository(dbPath));
+            services.AddSingleton<IAncestryRepository, AncestryRepository>(sp => new AncestryRepository(dbPath)
+            {
+                MaxNoOfSearchResults = appSettings.MaxNoOfSearchResults
+            });
 
             services.AddCors();
 

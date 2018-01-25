@@ -1,5 +1,12 @@
 ﻿namespace Appscore.Entities
 {
+    public enum Direction
+    {
+        Unspecified = 0,
+        Ancestors = 1,
+        Descendents = 2
+    }
+
     public enum Gender
     {
         U = 0,

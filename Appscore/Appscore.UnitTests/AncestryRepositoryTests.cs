@@ -15,11 +15,11 @@ namespace Appscore.UnitTests
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
-            AncestryRepository ancestryRepository = new AncestryRepository(dbPath);
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
 
             string nameContains = "le";
 
-            var results = ancestryRepository.SimpleSearch(new SimpleSearchParameters { Name = nameContains, Gender = Gender.U });
+            var results = ancestryRepository.SimpleSearch(new SearchParameters { Name = nameContains });
 
             results.SearchResults.ToList().ForEach(result =>
             {
@@ -32,17 +32,80 @@ namespace Appscore.UnitTests
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
-            AncestryRepository ancestryRepository = new AncestryRepository(dbPath);
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
 
             string nameContains = "le";
             var gender = Gender.F;
 
-            var results = ancestryRepository.SimpleSearch(new SimpleSearchParameters { Name = nameContains, Gender = gender });
+            var results = ancestryRepository.SimpleSearch(new SearchParameters { Name = nameContains, Gender = gender });
 
             results.SearchResults.ToList().ForEach(result =>
             {
                 Assert.IsTrue(result.Name.Contains(nameContains) && result.Gender == gender);
             });
+        }
+
+        [TestMethod]
+        public void Test_AdvancedSearch_Ascending_WithGenderSpecified()
+        {
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
+
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
+
+            string nameContains = "Codi Clarie";
+            var gender = Gender.F;
+
+            var results = ancestryRepository.AdvancedSearch(new AdvancedSearchParameters { Name = nameContains, Gender = gender, Direction = Direction.Ancestors });
+
+            Assert.IsTrue(results.SearchResults.Count() == 2);
+            Assert.IsTrue(results.SearchResults.All(ssr => ssr.Gender == Gender.F));
+            Assert.IsTrue(results.SearchResults.Last().Level == 0);
+        }
+
+        [TestMethod]
+        public void Test_AdvancedSearch_Descending_WithGenderSpecified()
+        {
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
+
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
+
+            string nameContains = "Codi Clarie";
+            var gender = Gender.M;
+
+            var results = ancestryRepository.AdvancedSearch(new AdvancedSearchParameters { Name = nameContains, Gender = gender, Direction = Direction.Descendents });
+
+            Assert.IsTrue(results.SearchResults.Count() == 1);
+            Assert.IsTrue(results.SearchResults.All(ssr => ssr.Gender == Gender.M));
+        }
+
+        [TestMethod]
+        public void Test_AdvancedSearch_Ascending_WithGenderUnspecified()
+        {
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
+
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
+
+            string nameContains = "Codi Clarie";
+
+            var results = ancestryRepository.AdvancedSearch(new AdvancedSearchParameters { Name = nameContains, Direction = Direction.Ancestors });
+
+            Assert.IsTrue(results.SearchResults.Count() == 6);
+            Assert.IsTrue(results.SearchResults.Last().Level == 0);
+        }
+
+        [TestMethod]
+        public void Test_AdvancedSearch_Descending_WithGenderUnspecified()
+        {
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
+
+            AncestryRepository ancestryRepository = new AncestryRepository(dbPath) { MaxNoOfSearchResults = 10 };
+
+            string nameContains = "Codi Clarie";
+
+            var results = ancestryRepository.AdvancedSearch(new AdvancedSearchParameters { Name = nameContains, Direction = Direction.Descendents });
+
+            Assert.IsTrue(results.SearchResults.Count() == 3);
+            Assert.IsTrue(results.SearchResults.Last().Level == 4);
         }
     }
 }

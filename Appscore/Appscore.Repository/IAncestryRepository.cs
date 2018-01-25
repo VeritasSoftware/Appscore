@@ -4,6 +4,8 @@ namespace Appscore.Repository
 {
     public interface IAncestryRepository
     {
-        SimpleSearchResultCollection SimpleSearch(SimpleSearchParameters searchParameters);
+        SimpleSearchResultCollection SimpleSearch(SearchParameters searchParameters);
+
+        AdvancedSearchResultCollection AdvancedSearch(AdvancedSearchParameters searchParameters);
     }
 }

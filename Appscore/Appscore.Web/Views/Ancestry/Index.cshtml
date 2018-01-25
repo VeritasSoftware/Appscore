@@ -13,6 +13,12 @@
         $scope.selectedGender = null;
 
         $scope.performSimpleSearch = function () {
+            $scope.error = "";
+
+            if ($scope.searchName.length <= 0) {
+                $scope.error = "Please enter a name."
+                return;
+            }
 
             var searchRequest = { Name: $scope.searchName };
 
@@ -84,7 +90,7 @@
                 </tr>
             </tbody>            
         </table>
-        <div>
+        <div style="color:red">
             {{ error }}
         </div>
     </div>
