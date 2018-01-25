@@ -10,3 +10,5 @@ Appscore tech test
 *	Angularjs
 
 *	Newtonsoft.Json
+
+The json data file name and max no of search results are specified in the API (appSettings.json);
