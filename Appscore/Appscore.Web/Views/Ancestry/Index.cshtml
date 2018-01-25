@@ -5,15 +5,87 @@
 }
 
 <script type="text/javascript">
-    app.controller('simpleSearchController', function ($scope) {
-        $scope.firstName = "John";
-        $scope.lastName = "Doe";
+    app.controller('simpleSearchController', function ($scope, $http) {
+        $scope.searchName = "";
+        $scope.error = "";
+        $scope.results = [];
+        $scope.genders = { Male: false, Female: false };
+        $scope.selectedGender = null;
+
+        $scope.performSimpleSearch = function () {
+
+            var searchRequest = { Name: $scope.searchName };
+
+            var genders = $scope.genders;
+
+            if (genders.Male && !genders.Female) {
+                searchRequest.Gender = 1;
+            }
+            else if (!genders.Male && genders.Female) {
+                searchRequest.Gender = 2;
+            }
+            else {
+                searchRequest.Gender = 0;
+            }
+
+            $http.post('http://localhost:51511/api/ancestry/simplesearch', searchRequest)
+            .then(function mySuccess(response) {
+                $scope.results = response.data.searchResults;
+            }, function myError(response) {
+                $scope.error = response.statusText;
+            });
+        };
     });
 </script>
 
 <div ng-app="Appscore" ng-controller="simpleSearchController">
-    First Name: <input type="text" ng-model="firstName"><br>
-    Last Name: <input type="text" ng-model="lastName"><br>
-    <br>
-    Full Name: {{firstName + " " + lastName}}
+    <div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:60%">
+                    <input type="text" style="width:100%" ng-model="searchName">
+                </td>
+                <td style="float:right;width:40%">
+                    <button ng-click="performSimpleSearch()" style="width:100%" value="Search">Search</button>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60%">                    
+                    <div style="width:100%">                        
+                        Gender:
+                        <label ng-repeat="(gender,enabled) in genders">
+                            <input name="genders" type="checkbox" ng-model="genders[gender]" /> {{ gender }}
+                        </label>
+                    </div>                    
+                </td>
+                <td style="float:right;width:40%">
+
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        <table border="1" ng-if="results.length > 0" style="width:100%">
+            <thead>
+                <tr style="background-color:olive; color:white">
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td>GENDER</td>
+                    <td>BIRTHPLACE</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="r in results">
+                    <td>{{ r.id }}</td>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.gender==2 ? 'Female' : 'Male' }}</td>
+                    <td>{{ r.birthPlace }}</td>
+                </tr>
+            </tbody>            
+        </table>
+        <div>
+            {{ error }}
+        </div>
+    </div>
 </div>

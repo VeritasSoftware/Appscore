@@ -31,6 +31,8 @@ namespace Appscore.API
             //Add dependency injection
             services.AddSingleton<IAncestryRepository, AncestryRepository>(sp => new AncestryRepository(dbPath));
 
+            services.AddCors();
+
             services.AddMvc();
         }
 
@@ -41,6 +43,8 @@ namespace Appscore.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc();
         }

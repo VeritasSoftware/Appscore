@@ -11,6 +11,7 @@ namespace Appscore.Repository
     public class AncestryRepository : IAncestryRepository
     {
         private readonly PlacePersonCollection _placePersonCollection;
+        private const int MAX_NO_OF_SIMPLE_SEARCH_RESULTS = 10;
 
         public AncestryRepository(string jsonFilePath)
         {
@@ -44,7 +45,7 @@ namespace Appscore.Repository
 
             return new SimpleSearchResultCollection
             {
-                SearchResults = query.ToList()
+                SearchResults = query.OrderBy(r => r.Name).Take(MAX_NO_OF_SIMPLE_SEARCH_RESULTS).ToList()
             };        
         }
     }
