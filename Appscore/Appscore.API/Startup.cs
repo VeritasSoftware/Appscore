@@ -26,9 +26,9 @@ namespace Appscore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
-
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\" + appSettings.JsonFileName).Replace(@"file:\", string.Empty);            
 
             //Add dependency injection
             services.AddSingleton<IAncestryRepository, AncestryRepository>(sp => new AncestryRepository(dbPath)

@@ -11,7 +11,7 @@
         $scope.error = "";
         $scope.results = [];
         $scope.genders = { Male: false, Female: false };
-        $scope.selectedGender = null;
+        $scope.buttonDisabled = false;
 
         $scope.performSimpleSearch = function () {
             $scope.error = "";
@@ -52,8 +52,8 @@
                 <td style="width:60%">
                     <input type="text" style="width:100%" ng-model="searchName">
                 </td>
-                <td style="float:right;width:40%">
-                    <button ng-click="performSimpleSearch()" style="width:100%" value="Search">Search</button>
+                <td style="float:right;">
+                    <button ng-disabled="buttonDisabled" ng-click="performSimpleSearch()" style="width:100%" value="Search">Search</button>
                 </td>
             </tr>
             <tr>
@@ -65,8 +65,8 @@
                         </label>
                     </div>                    
                 </td>
-                <td style="float:right;width:40%">
-
+                <td style="float:right;">
+                    <button onclick="location.href='@Url.Action("Advanced", "Ancestry")'" style="width:100%" value="Search">Advanced Search</button>
                 </td>
             </tr>
         </table>
