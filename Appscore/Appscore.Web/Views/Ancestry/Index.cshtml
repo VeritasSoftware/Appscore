@@ -1,4 +1,6 @@
-﻿@{
+﻿@inject AppSettings appSettings;
+
+@{
     ViewData["Title"] = "Simple";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -35,7 +37,7 @@
                 searchRequest.Gender = 0;
             }
 
-            $http.post('http://localhost:51511/api/ancestry/simplesearch', searchRequest)
+            $http.post('@appSettings.WebAPIUrl' + '/simplesearch', searchRequest)
             .then(function mySuccess(response) {
                 $scope.results = response.data.searchResults;
             }, function myError(response) {

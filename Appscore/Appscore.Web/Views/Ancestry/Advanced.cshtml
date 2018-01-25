@@ -1,4 +1,4 @@
-﻿
+﻿@inject AppSettings appSettings;
 @{
     ViewData["Title"] = "Advanced";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,7 +41,7 @@
 
             $scope.buttonDisabled = true;
 
-            $http.post('http://localhost:51511/api/ancestry/advancedsearch', searchRequest)
+            $http.post('@appSettings.WebAPIUrl' + '/advancedsearch', searchRequest)
             .then(function mySuccess(response) {
                 $scope.results = response.data.searchResults;
                 $scope.buttonDisabled = false;
