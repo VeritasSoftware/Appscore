@@ -30,6 +30,11 @@ namespace Appscore.Repository
         /// <returns><see cref="SimpleSearchResultCollection"/></returns>
         public SimpleSearchResultCollection SimpleSearch(SearchParameters searchParameters)
         {
+            if (string.IsNullOrEmpty(searchParameters.Name))
+            {
+                throw new ArgumentNullException(nameof(searchParameters.Name));
+            }
+
             //Use dynamic LINQ for Where clause
             var query = _placePersonCollection.people.Join(_placePersonCollection.places, p => p.place_id, pl => pl.id, (p, pl) => new SearchResult
             {
@@ -44,7 +49,7 @@ namespace Appscore.Repository
                 query = query.Where(ssr => ssr.Gender == searchParameters.Gender);
             }
 
-            query = query.Where(ssr => ssr.Name.ToLower().Contains(searchParameters.Name.ToLower()));
+            query = query.Where(ssr => ssr.Name.ToLower().Contains(searchParameters.Name.Trim().ToLower()));
 
             return new SimpleSearchResultCollection
             {
@@ -59,12 +64,17 @@ namespace Appscore.Repository
         /// <returns><see cref="AdvancedSearchResultCollection"/></returns>
         public AdvancedSearchResultCollection AdvancedSearch(AdvancedSearchParameters searchParameters)
         {
+            if (string.IsNullOrEmpty(searchParameters.Name))
+            {
+                throw new ArgumentNullException(nameof(searchParameters.Name));
+            }
+
             var results = new AdvancedSearchResultCollection
             {
                 SearchResults = new List<AdvancedSearchResult>()
             };
 
-            var foundPerson = _placePersonCollection.people.FirstOrDefault(p => string.Compare(p.name, searchParameters.Name, true) == 0);
+            var foundPerson = _placePersonCollection.people.FirstOrDefault(p => string.Compare(p.name, searchParameters.Name.Trim(), true) == 0);
 
             if (foundPerson != null)
             {

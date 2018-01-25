@@ -15,6 +15,13 @@
         $scope.direction = 1;
         $scope.buttonDisabled = false;
 
+        $scope.enterPressed = function (keyEvent) {
+            //If Enter key is pressed
+            if (keyEvent.which === 13) {
+                $scope.performAdvancedSearch();
+            }
+        };
+
         $scope.performAdvancedSearch = function () {
             $scope.error = "";
 
@@ -58,11 +65,17 @@
         <table style="width:100%">
             <tr>
                 <td style="width:60%">
-                    <input type="text" style="width:100%" ng-model="searchName">
+                    <input type="text" style="width:100%" 
+                           ng-model="searchName"
+                           ng-blur="performAdvancedSearch()"
+                           ng-keypress="enterPressed($event)" />
                 </td>
                 <td style="float:right;width:40%">
                     <div>
-                        <button ng-disabled="buttonDisabled" ng-click="performAdvancedSearch()" style="width:100%" value="Search">Search</button>
+                        <button ng-disabled="buttonDisabled" 
+                                ng-click="performAdvancedSearch()"                                 
+                                style="width:100%" 
+                                value="Search">Search</button>
                     </div>                    
                 </td>
             </tr>

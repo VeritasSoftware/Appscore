@@ -15,6 +15,13 @@
         $scope.genders = { Male: false, Female: false };
         $scope.buttonDisabled = false;
 
+        $scope.enterPressed = function (keyEvent) {
+            //If Enter key is pressed
+            if (keyEvent.which === 13) {
+                $scope.performSimpleSearch();
+            }
+        };
+
         $scope.performSimpleSearch = function () {
             $scope.error = "";
 
@@ -52,7 +59,7 @@
         <table style="width:100%">
             <tr>
                 <td style="width:60%">
-                    <input type="text" style="width:100%" ng-model="searchName">
+                    <input type="text" style="width:100%" ng-blur="performSimpleSearch()" ng-keypress="enterPressed($event)" ng-model="searchName">
                 </td>
                 <td style="float:right;">
                     <button ng-disabled="buttonDisabled" ng-click="performSimpleSearch()" style="width:100%" value="Search">Search</button>
