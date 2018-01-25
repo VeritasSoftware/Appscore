@@ -6,3 +6,9 @@ services:
     build:
       context: ./Appscore.API
       dockerfile: Dockerfile
+
+  appscore.web:
+    image: appscore.web
+    build:
+      context: ./Appscore.Web
+      dockerfile: Dockerfile
