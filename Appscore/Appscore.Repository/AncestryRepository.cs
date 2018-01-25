@@ -9,6 +9,7 @@ namespace Appscore.Repository
 
         public AncestryRepository()
         {
+
         }
 
         public SimpleSearchResultCollection SimpleSearch(SimpleSearchParameters searchParameters)
