@@ -3,14 +3,21 @@ Appscore tech test
 
 ***Tech stack:***
 
-*	ASPNET Core 2.0 Web API
+	*	ASPNET Core 2.0 Web API
 
-*	ASPNET Core 2.0 MVC
+	*	ASPNET Core 2.0 MVC
 
-*	Angularjs
+	*	Angularjs
 
-*	Newtonsoft.Json
+	*	Newtonsoft.Json
 
-The json data file name & max no of search results are specified in the Web API project (appSettings.json);
+***Configuration:***
 
-The Web API Url is specified in the MVC project (appSettings.json)
+Web API project (appSettings.json):
+
+	*	Json data file name
+	*	Max no of search results
+
+MVC project (appSettings.json):
+
+	*	Web API Url
