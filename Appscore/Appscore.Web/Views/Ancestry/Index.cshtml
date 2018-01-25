@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<script type="text/javascript">
+    app.controller('simpleSearchController', function ($scope) {
+        $scope.firstName = "John";
+        $scope.lastName = "Doe";
+    });
+</script>
+
+<div ng-app="Appscore" ng-controller="simpleSearchController">
+    First Name: <input type="text" ng-model="firstName"><br>
+    Last Name: <input type="text" ng-model="lastName"><br>
+    <br>
+    Full Name: {{firstName + " " + lastName}}
+</div>
