@@ -10,7 +10,7 @@
     app.controller('advancedSearchController', function ($scope, $http) {
         $scope.searchName = "";
         $scope.error = "";
-        $scope.results = [];
+        $scope.results = null;
         $scope.genders = { Male: false, Female: false };
         $scope.direction = 1;
         $scope.buttonDisabled = false;
@@ -103,7 +103,9 @@
 
         <br />
 
-        <display-search-results ng-if="results.length > 0" results="results"></display-search-results>
+        <display-search-results advanced="true" ng-if="results.length > 0" results="results"></display-search-results>
+
+        <div style="color:red"><p ng-if="results.length <= 0">Sorry, no search results returned!</p></div>
         
         <div style="color:red">
             {{ error }}
