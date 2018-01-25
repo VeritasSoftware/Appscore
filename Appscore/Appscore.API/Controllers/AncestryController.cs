@@ -31,6 +31,12 @@ namespace Appscore.API.Controllers
         public SimpleSearchResultCollection SimpleSearch([FromBody] SearchParameters searchParameters)
         {
             return _ancestryRepository.SimpleSearch(searchParameters);
-        }        
+        }
+
+        [HttpPost("advancedsearch")]
+        public AdvancedSearchResultCollection AdvancedSearch([FromBody] AdvancedSearchParameters searchParameters)
+        {
+            return _ancestryRepository.AdvancedSearch(searchParameters);
+        }
     }
 }

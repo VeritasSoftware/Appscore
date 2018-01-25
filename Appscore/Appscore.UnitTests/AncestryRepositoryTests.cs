@@ -46,7 +46,7 @@ namespace Appscore.UnitTests
         }
 
         [TestMethod]
-        public void Test_AdvancedSearch_Ascending_WithGenderSpecified()
+        public void Test_AdvancedSearch_Ancestors_WithGenderSpecified()
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
@@ -63,7 +63,7 @@ namespace Appscore.UnitTests
         }
 
         [TestMethod]
-        public void Test_AdvancedSearch_Descending_WithGenderSpecified()
+        public void Test_AdvancedSearch_Descendents_WithGenderSpecified()
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
@@ -79,7 +79,7 @@ namespace Appscore.UnitTests
         }
 
         [TestMethod]
-        public void Test_AdvancedSearch_Ascending_WithGenderUnspecified()
+        public void Test_AdvancedSearch_Ancestors_WithGenderUnspecified()
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 
@@ -94,7 +94,7 @@ namespace Appscore.UnitTests
         }
 
         [TestMethod]
-        public void Test_AdvancedSearch_Descending_WithGenderUnspecified()
+        public void Test_AdvancedSearch_Descendents_WithGenderUnspecified()
         {
             var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
 

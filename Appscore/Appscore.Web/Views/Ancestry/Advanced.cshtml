@@ -1,19 +1,20 @@
-﻿@{
-    ViewData["Title"] = "Simple";
+﻿
+@{
+    ViewData["Title"] = "Advanced";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Simple Search</h2>
+<h2>Advanced Search</h2>
 
 <script type="text/javascript">
-    app.controller('simpleSearchController', function ($scope, $http) {
+    app.controller('advancedSearchController', function ($scope, $http) {
         $scope.searchName = "";
         $scope.error = "";
         $scope.results = [];
         $scope.genders = { Male: false, Female: false };
-        $scope.selectedGender = null;
+        $scope.direction = 1;
 
-        $scope.performSimpleSearch = function () {
+        $scope.performAdvancedSearch = function () {
             $scope.error = "";
 
             if ($scope.searchName.length <= 0) {
@@ -35,7 +36,9 @@
                 searchRequest.Gender = 0;
             }
 
-            $http.post('http://localhost:51511/api/ancestry/simplesearch', searchRequest)
+            searchRequest.Direction = $scope.direction;            
+
+            $http.post('http://localhost:51511/api/ancestry/advancedsearch', searchRequest)
             .then(function mySuccess(response) {
                 $scope.results = response.data.searchResults;
             }, function myError(response) {
@@ -45,7 +48,7 @@
     });
 </script>
 
-<div ng-app="Appscore" ng-controller="simpleSearchController">
+<div ng-app="Appscore" ng-controller="advancedSearchController">
     <div>
         <table style="width:100%">
             <tr>
@@ -53,20 +56,30 @@
                     <input type="text" style="width:100%" ng-model="searchName">
                 </td>
                 <td style="float:right;width:40%">
-                    <button ng-click="performSimpleSearch()" style="width:100%" value="Search">Search</button>
+                    <button ng-click="performAdvancedSearch()" style="width:100%" value="Search">Search</button>
                 </td>
             </tr>
             <tr>
-                <td style="width:60%">                    
-                    <div style="width:100%">                        
+                <td style="width:60%">
+                    <div style="width:100%">
                         Gender:
                         <label ng-repeat="(gender,enabled) in genders">
                             <input name="genders" type="checkbox" ng-model="genders[gender]" /> {{ gender }}
                         </label>
-                    </div>                    
+                    </div>
                 </td>
-                <td style="float:right;width:40%">
-
+                <td style="float:right;width:40%"></td>
+            </tr>
+            <tr>
+                <td style="width:60%">
+                    <div style="width:100%">
+                        Direction:
+                        <input name="direction" type="radio" ng-model="direction" value="1" ng-checked="true" /> Ancestors
+                        <input name="direction" type="radio" ng-model="direction" value="2" /> Descendants
+                        @*<label ng-repeat="(direction,enabled) in directions">
+                            <input name="direction" type="radio" ng-model="directions[direction]" ng-init="{{ enabled }}" ng-value="{{ direction }}" /> {{ direction }}
+                        </label>*@
+                    </div>
                 </td>
             </tr>
         </table>
@@ -89,10 +102,12 @@
                     <td>{{ r.gender==2 ? 'Female' : 'Male' }}</td>
                     <td>{{ r.birthPlace }}</td>
                 </tr>
-            </tbody>            
+            </tbody>
         </table>
         <div style="color:red">
             {{ error }}
         </div>
     </div>
 </div>
+
+

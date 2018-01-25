@@ -117,7 +117,12 @@ namespace Appscore.Repository
                 hierarchy = new List<Person>();
             }
 
-            var result = new List<Person>();            
+            var result = new List<Person>(); 
+            
+            if (persons == null || !persons.Any())
+            {
+                return result;
+            }
 
             var query = persons.AsQueryable();
 
