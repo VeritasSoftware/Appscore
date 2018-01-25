@@ -2,9 +2,9 @@
 {
     public enum Gender
     {
-        M = 0,
-        F = 1,
-        U = 2
+        U = 0,
+        M = 1,
+        F = 2
     }
 
     public class Person

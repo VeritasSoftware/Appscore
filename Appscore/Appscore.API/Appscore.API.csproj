@@ -17,4 +17,15 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Appscore.Entities\Appscore.Entities.csproj" />
+    <ProjectReference Include="..\Appscore.Repository\Appscore.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="data_small.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

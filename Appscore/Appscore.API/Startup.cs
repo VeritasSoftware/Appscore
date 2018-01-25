@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Reflection;
+using System.IO;
+using Appscore.Repository;
 
 namespace Appscore.API
 {
@@ -23,6 +26,11 @@ namespace Appscore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var dbPath = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) + @"\data_small.json").Replace(@"file:\", string.Empty);
+
+            //Add dependency injection
+            services.AddSingleton<IAncestryRepository, AncestryRepository>(sp => new AncestryRepository(dbPath));
+
             services.AddMvc();
         }
 
