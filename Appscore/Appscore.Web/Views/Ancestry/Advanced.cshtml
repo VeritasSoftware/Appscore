@@ -103,27 +103,7 @@
 
         <br />
 
-        <div>
-            <table border="1" ng-if="results.length > 0" style="width:100%">
-                <thead>
-                    <tr style="background-color:olive; color:white">
-                        <td>ID</td>
-                        <td>NAME</td>
-                        <td>GENDER</td>
-                        <td>BIRTHPLACE</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="r in results">
-                        <td>{{ r.id }}</td>
-                        <td>{{ r.name }}</td>
-                        <td>{{ r.gender==2 ? 'Female' : 'Male' }}</td>
-                        <td>{{ r.birthPlace }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+        <display-search-results ng-if="results.length > 0" results="results"></display-search-results>
         
         <div style="color:red">
             {{ error }}
