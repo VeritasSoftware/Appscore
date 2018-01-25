@@ -71,7 +71,7 @@
                     <div style="width:100%">
                         Gender:
                         <label ng-repeat="(gender,enabled) in genders">
-                            <input name="genders" type="checkbox" ng-model="genders[gender]" /> {{ gender }}
+                            <input name="genders" type="checkbox" ng-change="performAdvancedSearch()" ng-model="genders[gender]" /> {{ gender }}
                         </label>
                     </div>
                 </td>
@@ -81,8 +81,8 @@
                 <td style="width:60%">
                     <div style="width:100%">
                         Direction:
-                        <input name="direction" type="radio" ng-model="direction" value="1" ng-checked="true" /> Ancestors
-                        <input name="direction" type="radio" ng-model="direction" value="2" /> Descendants                        
+                        <input name="direction" type="radio" ng-change="performAdvancedSearch()" ng-model="direction" value="1" ng-checked="true" /> Ancestors
+                        <input name="direction" type="radio" ng-change="performAdvancedSearch()" ng-model="direction" value="2" /> Descendants                        
                     </div>
                 </td>
             </tr>

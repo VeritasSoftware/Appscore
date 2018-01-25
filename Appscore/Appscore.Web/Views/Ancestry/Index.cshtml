@@ -63,7 +63,7 @@
                     <div style="width:100%">                        
                         Gender:
                         <label ng-repeat="(gender,enabled) in genders">
-                            <input name="genders" type="checkbox" ng-model="genders[gender]" /> {{ gender }}
+                            <input name="genders" type="checkbox" ng-change="performSimpleSearch()" ng-model="genders[gender]" /> {{ gender }}
                         </label>
                     </div>                    
                 </td>
